@@ -1,2 +1,5 @@
-# MindustryBuilds
-Latest builds for Mindustry
+# MindustryV4Builds
+
+Latest builds for Mindustry V4
+
+I dunno YAML syntax(
