@@ -31,14 +31,10 @@ jobs:
         git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4_reforked
         cd MindustryV4_reforked
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
-        sed -i 's/applicationId "io.acemany.MindustryV4"/applicationId "io.acemany.MindustryV4.be"/g' android/build.gradle
-        sed -i 's/"io.acemany.MindustryV4"/"io.acemany.MindustryV4.be"/g' android/AndroidManifest.xml
-        sed -i 's/"Mindustry V4"/"Mindustry V4 BE"/g' android/res/values/strings.xml
         ./gradlew pack
-        ./gradlew desktop:dist server:dist android:assembleRelease -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
+        ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
         mv desktop/build/libs/desktop_release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
         mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-${RELEASE_VERSION}.jar
-        mv android/build/outputs/apk/release/android-release.apk android/build/outputs/apk/release/Mindustry-V4-BE-Android-${RELEASE_VERSION}.apk
     - name: Upload desktop artifacts
       uses: svenstaro/upload-release-action@v2
       with:
@@ -51,10 +47,4 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: MindustryV4_reforked/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
-        tag: ${{ github.ref }}
-    - name: Upload Android artifacts
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: MindustryV4_reforked/android/build/outputs/apk/release/Mindustry-V4-BE-Android-${{ env.RELEASE_VERSION }}.apk
         tag: ${{ github.ref }}
