@@ -31,8 +31,8 @@ jobs:
         git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4_reforked
         cd MindustryV4_reforked
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
-        sed -i 's/applicationId "io.acemany/MindustryV4"/applicationId "io.acemany/MindustryV4.be"/g' android/build.gradle
-        sed -i 's/"io.acemany/MindustryV4"/"io.acemany/MindustryV4.be"/g' android/AndroidManifest.xml
+        sed -i 's/applicationId "io.acemany.MindustryV4"/applicationId "io.acemany.MindustryV4.be"/g' android/build.gradle
+        sed -i 's/"io.acemany.MindustryV4"/"io.acemany.MindustryV4.be"/g' android/AndroidManifest.xml
         sed -i 's/"Mindustry V4"/"Mindustry V4 BE"/g' android/res/values/strings.xml
         ./gradlew pack
         ./gradlew desktop:dist server:dist android:assembleRelease -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
