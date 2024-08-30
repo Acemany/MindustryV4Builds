@@ -33,7 +33,7 @@ jobs:
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
         sed -i 's/applicationId "io.acemany/MindustryV4"/applicationId "io.acemany/MindustryV4.be"/g' android/build.gradle
         sed -i 's/"io.acemany/MindustryV4"/"io.acemany/MindustryV4.be"/g' android/AndroidManifest.xml
-        sed -i 's/Mindustry V4/Mindustry V4 BE/g' android/res/values/strings.xml
+        sed -i 's/"Mindustry V4"/"Mindustry V4 BE"/g' android/res/values/strings.xml
         ./gradlew pack
         ./gradlew desktop:dist server:dist android:assembleRelease -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
         mv desktop/build/libs/desktop_release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
