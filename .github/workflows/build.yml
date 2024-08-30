@@ -33,7 +33,7 @@ jobs:
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
         ./gradlew pack
         ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
-        mv desktop/build/libs/desktop_release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
+        mv desktop/build/libs/desktop-release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
         mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-${RELEASE_VERSION}.jar
     - name: Upload desktop artifacts
       uses: svenstaro/upload-release-action@v2
