@@ -1,2 +1,0 @@
-versionName=7-fdroid-146
-versionCode=1070
