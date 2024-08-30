@@ -26,7 +26,7 @@ jobs:
       env:
         keystore_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
         keystore_alias_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
-        keystore_alias: frog
+        keystore_alias: meow
       run: |
         git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4_reforked
         cd MindustryV4_reforked
