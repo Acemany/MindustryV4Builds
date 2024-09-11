@@ -13,11 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 16
+      env: 
+        RELEASE_VERSION: ${{ github.run_number }}
       uses: actions/setup-java@v1
       with:
         java-version: 16
-    - name: Set env
-      run: echo "RELEASE_VERSION=${github.run_number}" >> $GITHUB_ENV
     - name: Set up keystore
       run: |
         echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
