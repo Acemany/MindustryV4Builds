@@ -17,7 +17,7 @@ jobs:
       with:
         java-version: 16
     - name: Set env
-      run: echo "RELEASE_VERSION=${github.run_id}" >> $GITHUB_ENV
+      run: echo "RELEASE_VERSION=${github.run_number}" >> $GITHUB_ENV
     - name: Set up keystore
       run: |
         echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
