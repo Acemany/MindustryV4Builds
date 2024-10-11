@@ -36,7 +36,7 @@ jobs:
         mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-${RELEASE_VERSION}.jar
     - name: Upload desktop artifacts
       uses: svenstaro/upload-release-action@v2
-      env: 
+      env:
         RELEASE_VERSION: ${{ github.run_number }}
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -45,7 +45,7 @@ jobs:
         body: ${{ env.BODY }}
     - name: Upload server artifacts
       uses: svenstaro/upload-release-action@v2
-      env: 
+      env:
         RELEASE_VERSION: ${{ github.run_number }}
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
