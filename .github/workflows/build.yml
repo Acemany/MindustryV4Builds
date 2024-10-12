@@ -6,26 +6,32 @@ on:
       - '*'
   workflow_dispatch:
 
+env:
+  RELEASE_VERSION: ${{ github.run_number + 22 }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
     - name: Set up JDK 16
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v2
       with:
-        java-version: 16
-    - name: Set up keystore
-      run: |
-        echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
-        base64 --decode keystore.txt > bekeystore.jks
+        distribution: 'temurin'
+        java-version: '16'
+
+    #- name: Set up keystore
+    #  run: |
+    #    echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
+    #    base64 --decode keystore.txt > bekeystore.jks
+
     - name: Create artifacts
       env:
         keystore_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
         keystore_alias_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
         keystore_alias: meow
-        RELEASE_VERSION: ${{ github.run_number }}
       run: |
         git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4_reforked
         cd MindustryV4_reforked
@@ -34,20 +40,18 @@ jobs:
         ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
         mv desktop/build/libs/desktop-release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
         mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-${RELEASE_VERSION}.jar
+
     - name: Upload desktop artifacts
       uses: svenstaro/upload-release-action@v2
-      env:
-        RELEASE_VERSION: ${{ github.run_number }}
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: MindustryV4_reforked/desktop/build/libs/Mindustry-V4-BE-Desktop-${{ env.RELEASE_VERSION }}.jar
-        tag: ${{ github.run_number }}
+        tag: ${{ github.run_number + 22 }}
         body: ${{ env.BODY }}
+
     - name: Upload server artifacts
       uses: svenstaro/upload-release-action@v2
-      env:
-        RELEASE_VERSION: ${{ github.run_number }}
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: MindustryV4_reforked/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
-        tag: ${{ github.run_number }}
+        tag: ${{ github.run_number + 22 }}
