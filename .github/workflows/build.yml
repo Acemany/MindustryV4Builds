@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  RELEASE_VERSION: ${{ github.run_number + 22 }}
+  RELEASE_VERSION: ${{ github.run_number }}
 
 jobs:
   deploy:
@@ -46,7 +46,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: MindustryV4_reforked/desktop/build/libs/Mindustry-V4-BE-Desktop-${{ env.RELEASE_VERSION }}.jar
-        tag: ${{ github.run_number + 22 }}
+        tag: ${{ github.run_number }}
         body: ${{ env.BODY }}
 
     - name: Upload server artifacts
@@ -54,4 +54,4 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: MindustryV4_reforked/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
-        tag: ${{ github.run_number + 22 }}
+        tag: ${{ github.run_number }}
