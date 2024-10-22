@@ -44,7 +44,7 @@ jobs:
     - name: Upload desktop artifacts
       uses: svenstaro/upload-release-action@v2
       with:
-        tag: ${{ RELEASE_VERSION }}
+        tag: ${{ github.run_number }}
         body: ${{ env.BODY }}
         release_name: ${{ github.event.head_commit.message }}
         overwrite: true
@@ -54,6 +54,6 @@ jobs:
     - name: Upload server artifacts
       uses: svenstaro/upload-release-action@v2
       with:
-        tag: ${{ RELEASE_VERSION }}
+        tag: ${{ github.run_number }}
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: MindustryV4_reforked/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
