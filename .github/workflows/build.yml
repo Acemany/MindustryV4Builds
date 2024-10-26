@@ -27,8 +27,10 @@ jobs:
       with:
         cmdline-tools-version: 9123335
 
-    - name: Install NDK
-      run: sdkmanager "platforms;android-30"
+    - name: what the
+      run: |
+        ls /home/runner/Android/Sdk/
+        ls $ANDROID_HOME
 
     - name: Set up keystore
       run: |
