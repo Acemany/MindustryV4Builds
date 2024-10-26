@@ -40,7 +40,7 @@ jobs:
       run: |
         git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4_reforked
         cd MindustryV4_reforked
-        echo "$HOME/.android/sdk" > local.properties
+        echo "sdk.dir = $HOME/.android/sdk" > local.properties
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
         ./gradlew pack
         ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
