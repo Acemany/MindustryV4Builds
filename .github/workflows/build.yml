@@ -29,7 +29,8 @@ jobs:
 
     - name: what the
       run: |
-        ls $ANDROID_HOME
+        ls $ANDROID_HOME/ndk/27.1.12297006/
+        unset ANDROID_NDK_HOME
 
     - name: Set up keystore
       run: |
@@ -42,8 +43,8 @@ jobs:
         keystore_alias_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
         keystore_alias: meow
       run: |
-        git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4_reforked
-        cd MindustryV4_reforked
+        git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4
+        cd MindustryV4
         echo "sdk.dir = $ANDROID_HOME" > local.properties
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
         ./gradlew pack
@@ -60,18 +61,18 @@ jobs:
         body: ${{ env.BODY }}
         overwrite: true
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: MindustryV4_reforked/desktop/build/libs/Mindustry-V4-BE-Desktop-${{ env.RELEASE_VERSION }}.jar
+        file: MindustryV4/desktop/build/libs/Mindustry-V4-BE-Desktop-${{ env.RELEASE_VERSION }}.jar
 
     - name: Upload server artifacts
       uses: svenstaro/upload-release-action@v2
       with:
         tag: ${{ github.run_number }}
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: MindustryV4_reforked/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
+        file: MindustryV4/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
 
     - name: Upload Android artifacts
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: MindustryV4_reforked/android/build/outputs/apk/release/Mindustry-V4-BE-Android-${{ env.RELEASE_VERSION }}.apk
+        file: MindustryV4/android/build/outputs/apk/release/Mindustry-V4-BE-Android-${{ env.RELEASE_VERSION }}.apk
         tag: ${{ github.ref }}
