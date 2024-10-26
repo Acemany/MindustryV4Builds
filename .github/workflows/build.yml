@@ -27,6 +27,9 @@ jobs:
       with:
         cmdline-tools-version: 9123335
 
+    - name: Install NDK
+      run: sdkmanager "ndk;22.0.7026061"
+
     - name: Set up keystore
       run: |
         echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
