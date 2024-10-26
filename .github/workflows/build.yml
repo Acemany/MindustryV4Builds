@@ -29,7 +29,6 @@ jobs:
 
     - name: what the
       run: |
-        ls /home/runner/Android/Sdk/
         ls $ANDROID_HOME
 
     - name: Set up keystore
