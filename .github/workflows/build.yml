@@ -28,7 +28,7 @@ jobs:
         cmdline-tools-version: 9123335
 
     - name: Install NDK
-      run: sdkmanager "ndk;22.0.7026061"
+      run: sdkmanager "platforms;android-30"
 
     - name: Set up keystore
       run: |
