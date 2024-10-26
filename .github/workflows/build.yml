@@ -23,7 +23,7 @@ jobs:
         java-version: '8'
 
     - name: Set up Android SDK
-      uses: android-actions/setup-android@3
+      uses: android-actions/setup-android@v3
       with:
         cmdline-tools-version: 10406996
 
