@@ -22,6 +22,11 @@ jobs:
         distribution: 'temurin'
         java-version: '8'
 
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@3
+      with:
+        cmdline-tools-version: 10406996
+
     - name: Set up keystore
       run: |
         echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
@@ -35,6 +40,7 @@ jobs:
       run: |
         git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4_reforked
         cd MindustryV4_reforked
+        echo "$HOME/.android/sdk" > local.properties
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
         ./gradlew pack
         ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
