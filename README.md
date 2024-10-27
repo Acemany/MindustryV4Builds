@@ -1,5 +1,5 @@
-# MindustryV4Builds
+# Mindustry V4 Builds
 
 Latest builds for [Mindustry V4](https://github.com/acemany/MindustryV4_reforked)
 
-YAML is new to me so i can do 1285363215 commits for one little thing
+Why Android autobuild is that hard
