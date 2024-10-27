@@ -22,26 +22,26 @@ jobs:
         distribution: 'temurin'
         java-version: '8'
 
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        cmdline-tools-version: 9123335
+   # - name: Set up Android SDK
+   #   uses: android-actions/setup-android@v3
+   #   with:
+   #     cmdline-tools-version: 9123335
 
-    - name: what the
-      run: |
-        ls $ANDROID_HOME/ndk/27.1.12297006/
-        unset ANDROID_NDK_HOME
+   # - name: what the
+   #   run: |
+   #     ls $ANDROID_HOME/ndk/27.1.12297006/
+   #     unset ANDROID_NDK_HOME
 
-    - name: Set up keystore
-      run: |
-        echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
-        base64 --decode keystore.txt > bekeystore.jks
+   # - name: Set up keystore
+   #   run: |
+   #     echo "${{ secrets.KEYSTORE_BASE64 }}" > keystore.txt
+   #     base64 --decode keystore.txt > bekeystore.jks
 
     - name: Create artifacts
-      env:
-        keystore_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
-        keystore_alias_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
-        keystore_alias: meow
+    #  env:
+    #    keystore_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
+    #    keystore_alias_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
+    #    keystore_alias: meow
       run: |
         git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4
         cd MindustryV4
@@ -51,7 +51,7 @@ jobs:
         ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
         mv desktop/build/libs/desktop-release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
         mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-${RELEASE_VERSION}.jar
-        mv android/build/outputs/apk/release/android-release.apk android/build/outputs/apk/release/Mindustry-V4-BE-Android-${RELEASE_VERSION}.apk
+      # mv android/build/outputs/apk/release/android-release.apk android/build/outputs/apk/release/Mindustry-V4-BE-Android-${RELEASE_VERSION}.apk
 
     - name: Upload desktop artifacts
       uses: svenstaro/upload-release-action@v2
@@ -70,9 +70,9 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: MindustryV4/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
 
-    - name: Upload Android artifacts
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: MindustryV4/android/build/outputs/apk/release/Mindustry-V4-BE-Android-${{ env.RELEASE_VERSION }}.apk
-        tag: ${{ github.ref }}
+    #- name: Upload Android artifacts
+    #  uses: svenstaro/upload-release-action@v2
+    #  with:
+    #    repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #    file: MindustryV4/android/build/outputs/apk/release/Mindustry-V4-BE-Android-${{ env.RELEASE_VERSION }}.apk
+    #    tag: ${{ github.ref }}
