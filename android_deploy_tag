@@ -2,10 +2,16 @@
 
 
 lastdir="$(pwd)"
+bra="$(git branch --show-current)"
+
 cd /home/acemany/projects/github/MindustryV4
+
 git checkout $(wget https://api.github.com/repos/Acemany/MindustryV4Builds/releases/tags/$1 -qO - | awk -F \" -v RS="," '/body/ {print $(NF-1)}')
+
 ./gradlew android:assembleRelease
 mv ./android/build/outputs/apk/release/android-release.apk ./android/build/outputs/apk/release/Mindustry-V4-BE-Android-$1.apk
 gh release upload -R Acemany/MindustryV4Builds $1 ./android/build/outputs/apk/release/Mindustry-V4-BE-Android-$1.apk
-git checkout master
+ 
+git checkout $bra
+
 cd $lastdir
