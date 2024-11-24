@@ -43,7 +43,7 @@ jobs:
     #    keystore_alias_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
     #    keystore_alias: meow
       run: |
-        git clone --depth=1 --branch=master https://github.com/acemany/MindustryV4
+        git clone --depth=1 --branch=duo https://github.com/acemany/MindustryV4
         cd MindustryV4
         echo "sdk.dir = $ANDROID_HOME" > local.properties
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV

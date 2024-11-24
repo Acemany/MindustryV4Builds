@@ -10,10 +10,12 @@ git checkout $(wget https://api.github.com/repos/Acemany/MindustryV4Builds/relea
 
 ./gradlew android:assembleRelease
 
-if [ -e ./android/build/outputs/apk/release/android-release.apk ]; then
+if [ -e ./android/build/outputs/apk/release/android-release.apk ]
+then
   mv ./android/build/outputs/apk/release/android-release.apk ./android/build/outputs/apk/release/Mindustry-V4-BE-Android-$1.apk
   gh release upload -R Acemany/MindustryV4Builds $1 ./android/build/outputs/apk/release/Mindustry-V4-BE-Android-$1.apk
-else echo Built unsuccessfully; fi
+else echo Built unsuccessfully
+fi
 
 git checkout $bra
 
