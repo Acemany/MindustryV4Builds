@@ -3,7 +3,7 @@ name: Build Artifacts
 on:
   push:
     tags:
-      - '*'
+      - 'never'
   workflow_dispatch:
 
 env:
@@ -45,7 +45,7 @@ jobs:
       run: |
         git clone --depth=1 --branch=duo https://github.com/acemany/MindustryV4
         cd MindustryV4
-        echo "sdk.dir = $ANDROID_HOME" > local.properties
+        # echo "sdk.dir = $ANDROID_HOME" > local.properties
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
         ./gradlew pack
         ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
