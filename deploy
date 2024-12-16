@@ -8,13 +8,13 @@ branch="$2"
 
 cd /tmp
 
-git clone /home/acemany/projects/github/MindustryV4
+git clone $HOME/projects/github/MindustryV4
 cd MindustryV4
 git checkout $branch
 
-cp /home/acemany/projects/github/bekeystore.jks ../bekeystore.jks
-cp /home/acemany/projects/github/MindustryV4/local.properties local.properties
-cp /home/acemany/projects/github/MindustryV4/core/assets/version.properties core/assets/version.properties
+cp $HOME/projects/github/bekeystore.jks ../bekeystore.jks
+cp $HOME/projects/github/MindustryV4/local.properties local.properties
+cp $HOME/projects/github/MindustryV4/core/assets/version.properties core/assets/version.properties
 
 ./gradlew pack
 ./gradlew desktop:run -Pbuildversion=$tag -PversionType=bleeding-edge
