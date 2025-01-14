@@ -3,7 +3,7 @@ name: Build Artifacts
 on:
   push:
     tags:
-      - 'never'
+      - '*'
   workflow_dispatch:
 
 env:
@@ -48,12 +48,13 @@ jobs:
         # echo "sdk.dir = $ANDROID_HOME" > local.properties
         echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
         ./gradlew pack
-        ./gradlew desktop:dist server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
-        mv desktop/build/libs/desktop-release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
+        ./gradlew server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
         mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-${RELEASE_VERSION}.jar
-      # mv android/build/outputs/apk/release/android-release.apk android/build/outputs/apk/release/Mindustry-V4-BE-Android-${RELEASE_VERSION}.apk
+      #  ./gradlew desktop:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
+      #  mv desktop/build/libs/desktop-release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-${RELEASE_VERSION}.jar
+      #  mv android/build/outputs/apk/release/android-release.apk android/build/outputs/apk/release/Mindustry-V4-BE-Android-${RELEASE_VERSION}.apk
 
-    - name: Upload desktop artifacts
+    - name: Upload some artifacts
       uses: svenstaro/upload-release-action@v2
       with:
         tag: ${{ github.run_number }}
@@ -61,14 +62,21 @@ jobs:
         body: ${{ env.BODY }}
         overwrite: true
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: MindustryV4/desktop/build/libs/Mindustry-V4-BE-Desktop-${{ env.RELEASE_VERSION }}.jar
+        file: MindustryV4/README.md
 
-    - name: Upload server artifacts
-      uses: svenstaro/upload-release-action@v2
-      with:
-        tag: ${{ github.run_number }}
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: MindustryV4/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
+    #- name: Upload server artifacts
+    #  uses: svenstaro/upload-release-action@v2
+    #  with:
+    #    tag: ${{ github.run_number }}
+    #    repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #    file: MindustryV4/server/build/libs/Mindustry-V4-BE-Server-${{ env.RELEASE_VERSION }}.jar
+
+    #- name: Upload desktop artifacts
+    #  uses: svenstaro/upload-release-action@v2
+    #  with:
+    #    tag: ${{ github.run_number }}
+    #    repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #    file: MindustryV4/desktop/build/libs/Mindustry-V4-BE-Desktop-${{ env.RELEASE_VERSION }}.jar
 
     #- name: Upload Android artifacts
     #  uses: svenstaro/upload-release-action@v2
