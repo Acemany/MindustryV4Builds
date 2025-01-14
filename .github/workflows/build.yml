@@ -43,10 +43,11 @@ jobs:
     #    keystore_alias_password: ${{ secrets.KEYSTORE_PASSWORD_SECRET }}
     #    keystore_alias: meow
       run: |
-        git clone --depth=1 --branch=duo https://github.com/acemany/MindustryV4
+        last_branch="$(wget "https://api.github.com/repos/Acemany/MindustryV4/commits?per_page=1" -qO - | awk -F \" -v RS="," '/sha/ {print $(NF-1)}' | head -n 1)"
+        git clone --depth=1 -o last_branch https://github.com/acemany/MindustryV4
         cd MindustryV4
         # echo "sdk.dir = $ANDROID_HOME" > local.properties
-        echo "BODY=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        echo "BODY=$last_branch" >> $GITHUB_ENV
         ./gradlew pack
         ./gradlew server:dist -Pbuildversion=${RELEASE_VERSION} -PversionType=bleeding-edge --stacktrace
         mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-${RELEASE_VERSION}.jar
