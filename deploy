@@ -2,19 +2,18 @@
 
 
 lastdir="$(pwd)"
-lastbranch="$(git branch --show-current)"
 tag="$1"
 branch="$2"
 
 cd /tmp
 
-git clone $HOME/projects/github/MindustryV4
+git clone $HOME/github/MindustryV4
 cd MindustryV4
 git checkout $branch
 
-cp $HOME/projects/github/bekeystore.jks ../bekeystore.jks
-cp $HOME/projects/github/MindustryV4/local.properties local.properties
-cp $HOME/projects/github/MindustryV4/core/assets/version.properties core/assets/version.properties
+cp $HOME/github/bekeystore.jks ../bekeystore.jks
+cp $HOME/github/MindustryV4/local.properties local.properties
+cp $HOME/github/MindustryV4/core/assets/version.properties core/assets/version.properties
 
 ./gradlew pack
 ./gradlew desktop:run -Pbuildversion=$tag -PversionType=bleeding-edge
@@ -28,10 +27,12 @@ then
   mv desktop/build/libs/desktop-release.jar desktop/build/libs/Mindustry-V4-BE-Desktop-$tag.jar
   mv server/build/libs/server-release.jar server/build/libs/Mindustry-V4-BE-Server-$tag.jar
 
+  #gh release create -R Acemany/MindustryV4Builds $tag
   gh release upload -R Acemany/MindustryV4Builds $tag android/build/outputs/apk/release/Mindustry-V4-BE-Android-$tag.apk desktop/build/libs/Mindustry-V4-BE-Desktop-$tag.jar server/build/libs/Mindustry-V4-BE-Server-$tag.jar
   echo Built SUCCESSFULLY tag $tag
 
-else echo Built UNsuccessfully tag $tag
+else
+  echo Built UNsuccessfully tag $tag
 fi
 
 rm -fr /tmp/MindustryV4
