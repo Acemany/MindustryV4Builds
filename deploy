@@ -5,11 +5,11 @@ lastdir="$(pwd)"
 tag="$1"
 branch="$2"
 
-cd /tmp
+cd $HOME/tmp
 
 git clone $HOME/github/MindustryV4
 cd MindustryV4
-git checkout $branch
+git switch -d $branch
 
 cp $HOME/github/bekeystore.jks ../bekeystore.jks
 cp $HOME/github/MindustryV4/local.properties local.properties
@@ -35,7 +35,7 @@ else
   echo Built UNsuccessfully tag $tag
 fi
 
-rm -fr /tmp/MindustryV4
+rm -fr $HOME/tmp/MindustryV4
 
 cd $lastdir
 echo You are back in $lastdir
