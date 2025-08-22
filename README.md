@@ -1,6 +1,10 @@
 # Mindustry V4 Builds
 
-Latest builds for [Mindustry V4](https://github.com/acemany/MindustryV4_reforked)
+> [!IMPORTANT]
+>
+> Project [migrated](https://codeberg.org/Acemany/MindustryV4Builds) to Codeberg, there will be no more updates to this repository!
+
+NOT latest builds for [Mindustry V4](https://codeberg.org/Acemany/MindustryV4)
 
 Desktop and server versions builds automatically, android version built on my PC
 
